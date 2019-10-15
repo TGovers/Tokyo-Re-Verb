@@ -15,7 +15,7 @@ namespace BinaryData
     const int            Animation2_pngSize = 390086;
 
     extern const char*   Animation3_png;
-    const int            Animation3_pngSize = 334067;
+    const int            Animation3_pngSize = 352577;
 
     extern const char*   Animation4_png;
     const int            Animation4_pngSize = 354701;
@@ -23,11 +23,17 @@ namespace BinaryData
     extern const char*   Animation5_png;
     const int            Animation5_pngSize = 314715;
 
+    extern const char*   Animation6_png;
+    const int            Animation6_pngSize = 243236;
+
+    extern const char*   Animation7_png;
+    const int            Animation7_pngSize = 304650;
+
     extern const char*   PurpleAnimate_png;
     const int            PurpleAnimate_pngSize = 2595297;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 6;
+    const int namedResourceListSize = 8;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

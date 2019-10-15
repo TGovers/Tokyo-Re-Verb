@@ -12,49 +12,105 @@
 #include "PluginEditor.h"
 #include "JuceHeader.h"
 
-AnimatedComponent::AnimatedComponent() {
-	currentImage = bg;
-}
+/*AnimatedComponent::AnimatedComponent() {
+	knobImage = bg;
+	prevImage = bg;
+	bgAlpha = 1.f;
+}*/
 
 void AnimatedComponent::paint(juce::Graphics &g)
 {
-	g.drawImageAt(currentImage, 0, 0);
+	DBG("PAINTING");
+	//prevImage.multiplyAllAlphas(1-bgAlpha);
+	//currentImage.multiplyAllAlphas(bgAlpha);
+	//knobImage.multiplyAllAlphas(1-bgAlpha);
+	//bg.multiplyAllAlphas(bgAlpha);
+
+	//g.drawImageAt(prevImage, 0, 0);
+	//g.drawImageAt(currentImage, 0, 0);
+	g.drawImageAt(bg, 0, 0);
+	g.drawImageAt(knobImage, 0, 0);
 }
 
-
+//bgAlphaMultiple should be 1
+//going into a knob, BG fade out
 void AnimatedComponent::mouseExit(const juce::MouseEvent &e)  
 {
 	Point<int> p = e.getPosition();
 	int x = p.getX();
-	int y = p.getY(); //256
-	DBG(x);
-	DBG(y);
+	int y = p.getY(); 
 	DBG("blaExit");
-	if (y > 256 && y < 360)setImage(x);
+
+	//new DelayedOneShotLambda(refreshRate, [this]() {this->bgfadeOut(bgMul); });
+
+	if (y > 256 && y < 360)setKnobImage(x);
+	//prevImage = crrentImage;
 	repaint();
 	
 }
 
-void AnimatedComponent::mouseEnter(const juce::MouseEvent &e)
+
+/*
+@param m - amountToMultiplyBy
+fading in, m > 1
+*/
+/*void AnimatedComponent::bgfadeIn(float m) {
+	bgMul = m;
+	bgAlpha = bgAlpha * bgMul;
+	if (bgAlpha < 0.9f) {
+		m += 0.1;
+		new DelayedOneShotLambda(refreshRate, [this, m]() {this->bgfadeIn(m); });
+	}
+	repaint();
+}
+
+
+//bgAlphaMultiple should be 0
+//going to bg, bg fade in
+//current image fade in
+*/void AnimatedComponent::mouseEnter(const juce::MouseEvent &e)
 {
-	currentImage = bg;
+	knobImage = bg;
+	//new DelayedOneShotLambda(refreshRate, [this]() {this->bgfadeIn(bgMul); });
 	repaint();
 	DBG("blaEnering-------");
 }
 
-void AnimatedComponent::setImage(int x) {
-	if (x >= 258 && x <= 337) {
-		currentImage = k3;
+/*
+@param m - amountToMultiplyBy
+fading out, m < 1
+
+void AnimatedComponent::bgfadeOut(float m) {
+	bgMul = m;
+	bgAlpha = bgAlpha*bgMul;
+	if (bgAlpha > 0.1f) {
+		m -= 0.1;
+		new DelayedOneShotLambda(refreshRate, [this, m]() {this->bgfadeIn(m); });
+	}
+
+	repaint();
+}
+*/
+void AnimatedComponent::setKnobImage(int x) {
+	if (x >= 58 && x <= 137) {
+		knobImage = k7;
+	}
+	else if (x >= 158 && x <= 237) {
+		knobImage = k8;
+	}
+	else if (x >= 258 && x <= 337) {
+		knobImage = k3;
 	}
 	else if (x >= 358 && x <= 437) {
-		currentImage = k4;
+		knobImage = k4;
 	}
 	else if (x >= 458 && x <= 537) {
-		currentImage = k5;
+		knobImage = k5;
 	}
 	else if (x >= 558 && x <= 637) {
-		currentImage = k6;
+		knobImage = k6;
 	}
+
 }
 
 

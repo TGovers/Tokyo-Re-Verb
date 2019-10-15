@@ -12,7 +12,6 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-
 //==============================================================================
 /**
 */
@@ -32,19 +31,49 @@ class AnimatedComponent : public Component
 		Image k5 = ImageCache::getFromMemory(BinaryData::Animation4_png, BinaryData::Animation4_pngSize);
 
 		Image k6 = ImageCache::getFromMemory(BinaryData::Animation5_png, BinaryData::Animation5_pngSize);
+
+		Image k7 = ImageCache::getFromMemory(BinaryData::Animation6_png, BinaryData::Animation6_pngSize);
+
+		Image k8 = ImageCache::getFromMemory(BinaryData::Animation7_png, BinaryData::Animation7_pngSize);
 	
 	
-		Image currentImage;
+		Image knobImage;
+		Image prevImage;
 		void mouseEnter(const MouseEvent& e) override; 
 		void mouseExit(const MouseEvent& e) override;
-		Point<int> getPosition();
-		void setImage(int x);
+		void setKnobImage(int x);
 
-		AnimatedComponent();
+		/*void bgfadeIn(float m);
+		void bgfadeOut(float m);
+		float bgAlpha;
+		float bgMul;
+		float refreshRate = 1000.f/2.f;
+		*/
+		//AnimatedComponent();
 	
 	
 };
 
+/*class DelayedOneShotLambda : public Timer {
+	public:
+		//Constructor, need an int and a FUNCTINO
+		DelayedOneShotLambda(int ms, std::function<void()> fn) :
+			func(fn)
+		{
+			startTimer(ms);
+		}
+		//destrucor
+		~DelayedOneShotLambda(){ stopTimer(); }
+
+		void timerCallback() override {
+			auto f = func;
+			delete this; //timer delete itself, calls destructor
+			f();
+		}
+	private:
+		std::function<void()>func;
+};
+*/
 class OtherLookAndFeel : public LookAndFeel_V4
 {
 public:
