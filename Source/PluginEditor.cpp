@@ -12,15 +12,64 @@
 #include "PluginEditor.h"
 #include "JuceHeader.h"
 
+AnimatedComponent::AnimatedComponent() {
+	currentImage = bg;
+}
+
+void AnimatedComponent::paint(juce::Graphics &g)
+{
+	g.drawImageAt(currentImage, 0, 0);
+}
+
+
+void AnimatedComponent::mouseExit(const juce::MouseEvent &e)  
+{
+	Point<int> p = e.getPosition();
+	int x = p.getX();
+	int y = p.getY(); //256
+	DBG(x);
+	DBG(y);
+	DBG("blaExit");
+	if (y > 256 && y < 360)setImage(x);
+	repaint();
+	
+}
+
+void AnimatedComponent::mouseEnter(const juce::MouseEvent &e)
+{
+	currentImage = bg;
+	repaint();
+	DBG("blaEnering-------");
+}
+
+void AnimatedComponent::setImage(int x) {
+	if (x >= 258 && x <= 337) {
+		currentImage = k3;
+	}
+	else if (x >= 358 && x <= 437) {
+		currentImage = k4;
+	}
+	else if (x >= 458 && x <= 537) {
+		currentImage = k5;
+	}
+	else if (x >= 558 && x <= 637) {
+		currentImage = k6;
+	}
+}
+
+
 //==============================================================================
 TokyoRe_verbAudioProcessorEditor::TokyoRe_verbAudioProcessorEditor (TokyoRe_verbAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
+
+	addAndMakeVisible(Comp);
+	//addAndMakeVisible(Comp1);
     setOpaque(true);
     setSize (700, 394);
-    
+    //knob one
     filterCutoffDial.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     filterCutoffDial.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
     filterCutoffDial.setSize(80, 80);
@@ -29,6 +78,7 @@ TokyoRe_verbAudioProcessorEditor::TokyoRe_verbAudioProcessorEditor (TokyoRe_verb
     filterCutoffDial.addListener(this);
     addAndMakeVisible(filterCutoffDial);
     
+	//knob two
     filterResDial.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     filterResDial.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
     filterResDial.setSize(80, 80);
@@ -50,6 +100,7 @@ TokyoRe_verbAudioProcessorEditor::TokyoRe_verbAudioProcessorEditor (TokyoRe_verb
     addAndMakeVisible(filterResLabel);
     filterResLabel.attachToComponent(&filterResDial, false);
     
+	//knob 3
     reverbMixDial.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     reverbMixDial.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
     reverbMixDial.setSize(80, 80);
@@ -58,6 +109,7 @@ TokyoRe_verbAudioProcessorEditor::TokyoRe_verbAudioProcessorEditor (TokyoRe_verb
     reverbMixDial.addListener(this);
     addAndMakeVisible(reverbMixDial);
     
+	//knob 4
     reverbRoomDial.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     reverbRoomDial.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
     reverbRoomDial.setSize(80, 80);
@@ -65,7 +117,7 @@ TokyoRe_verbAudioProcessorEditor::TokyoRe_verbAudioProcessorEditor (TokyoRe_verb
     // dont change these two
     reverbRoomDial.addListener(this);
     addAndMakeVisible(reverbRoomDial);
-    
+    //knob 5
     reverbDampDial.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
     reverbDampDial.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
     reverbDampDial.setSize(80, 80);
@@ -73,7 +125,7 @@ TokyoRe_verbAudioProcessorEditor::TokyoRe_verbAudioProcessorEditor (TokyoRe_verb
     // dont change these two
     reverbDampDial.addListener(this);
     addAndMakeVisible(reverbDampDial);
-    
+    //knob 6
     reverbWidthDial.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
 	reverbWidthDial.setSize(80, 80);
 	reverbWidthDial.setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
@@ -89,6 +141,8 @@ TokyoRe_verbAudioProcessorEditor::TokyoRe_verbAudioProcessorEditor (TokyoRe_verb
     reverbDampValue = new AudioProcessorValueTreeState::SliderAttachment (processor.mState, "damp", reverbDampDial);
     reverbWidthValue = new AudioProcessorValueTreeState::SliderAttachment (processor.mState, "width", reverbWidthDial);
 
+
+	//////////////////////////HERE
     reverbMixDial.setLookAndFeel(&otherLookAndFeel);
     reverbRoomDial.setLookAndFeel(&otherLookAndFeel);
     reverbDampDial.setLookAndFeel(&otherLookAndFeel);
@@ -119,9 +173,14 @@ void TokyoRe_verbAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our plugin background is opaque, so we must completely fill the background with a solid colour or image)
     
-    Image background = ImageCache::getFromMemory(BinaryData::KanekiWing_png, BinaryData::KanekiWing_pngSize);
-    g.drawImageAt(background, 0, 0);
+    Image background = ImageCache::getFromMemory(BinaryData::Animation1_png, BinaryData::Animation1_pngSize);
+	//MYpaint(g, background);
+	g.drawImageAt(background, 0, 0);
  
+}
+
+void TokyoRe_verbAudioProcessorEditor::MYpaint(Graphics& g, Image i) {
+	g.drawImageAt(i, 0, 0);
 }
 
 void TokyoRe_verbAudioProcessorEditor::resized()
@@ -135,6 +194,10 @@ void TokyoRe_verbAudioProcessorEditor::resized()
     reverbRoomDial.setBounds(358, getHeight()-113, 80, 80);
     reverbDampDial.setBounds(458, getHeight()-113, 80, 80);
 	reverbMixDial.setBounds(568, getHeight() - 113, 80, 80);
+
+	Comp.setBounds(getLocalBounds());
+	//Comp1.setBounds(getLocalBounds());
+	
 }
 
 void TokyoRe_verbAudioProcessorEditor::sliderValueChanged(Slider* slider)

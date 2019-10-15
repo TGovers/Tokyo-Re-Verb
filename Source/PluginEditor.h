@@ -17,6 +17,34 @@
 /**
 */
 
+
+class AnimatedComponent : public Component
+{
+	public:
+		void paint(Graphics&) override;
+
+		Image bg = ImageCache::getFromMemory(BinaryData::Animation1_png, BinaryData::Animation1_pngSize);
+
+		Image k3 = ImageCache::getFromMemory(BinaryData::Animation2_png, BinaryData::Animation2_pngSize);
+
+		Image k4 = ImageCache::getFromMemory(BinaryData::Animation3_png, BinaryData::Animation3_pngSize);
+	
+		Image k5 = ImageCache::getFromMemory(BinaryData::Animation4_png, BinaryData::Animation4_pngSize);
+
+		Image k6 = ImageCache::getFromMemory(BinaryData::Animation5_png, BinaryData::Animation5_pngSize);
+	
+	
+		Image currentImage;
+		void mouseEnter(const MouseEvent& e) override; 
+		void mouseExit(const MouseEvent& e) override;
+		Point<int> getPosition();
+		void setImage(int x);
+
+		AnimatedComponent();
+	
+	
+};
+
 class OtherLookAndFeel : public LookAndFeel_V4
 {
 public:
@@ -66,13 +94,19 @@ public:
 		//==============================================================================
 		void paint(Graphics&) override;
 		void resized() override;
+		void MYpaint(Graphics&, Image i);
+		void rotateImage();
 
+
+		
 	private:
+		AnimatedComponent Comp;
+		//AnimatedComponent Comp1;
 
 		juce::Image backGround;
+		
 
 		OtherLookAndFeel otherLookAndFeel;
-
 
 		Slider filterCutoffDial;
 		Slider filterResDial;
@@ -87,10 +121,10 @@ public:
 
 		//Slider reverbDryDial;
 		//Slider reverbWetDial;
-		Slider reverbMixDial;
-		Slider reverbRoomDial;
-		Slider reverbDampDial;
-		Slider reverbWidthDial;
+		Slider reverbMixDial; //3
+		Slider reverbRoomDial; //4
+		Slider reverbDampDial; //5
+		Slider reverbWidthDial; //6
 
 		ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> reverbMixValue;
 		ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> reverbRoomValue;
@@ -117,5 +151,5 @@ public:
 		// access the processor object that created it.
 		TokyoRe_verbAudioProcessor& processor;
 
-		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TokyoRe_verbAudioProcessorEditor)
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TokyoRe_verbAudioProcessorEditor);
 	};

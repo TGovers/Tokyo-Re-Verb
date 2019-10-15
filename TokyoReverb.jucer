@@ -3,10 +3,13 @@
 <JUCERPROJECT id="Eymkgk" name="TokyoRe:verb" projectType="audioplug" jucerVersion="5.4.3">
   <MAINGROUP id="Xio4V3" name="TokyoRe:verb">
     <GROUP id="{CB420FD2-A550-99CC-35E8-B5F9DF853F27}" name="Resources">
-      <FILE id="WxSeHh" name="blue.png" compile="0" resource="1" file="blue.png"/>
-      <FILE id="gaAHYH" name="KanekiWing.png" compile="0" resource="1" file="C:/Users/Ethan Punter/Downloads/KanekiWing.png"/>
-      <FILE id="DQBDu4" name="purple.png" compile="0" resource="1" file="purple.png"/>
-      <FILE id="cD9ZWn" name="knob1.png" compile="0" resource="1" file="C:/Users/Ethan Punter/Desktop/knob1.png"/>
+      <FILE id="QlXHiQ" name="Animation1.png" compile="0" resource="1" file="KanekiAnimation/Animation1.png"/>
+      <FILE id="LhmFWi" name="Animation2.png" compile="0" resource="1" file="KanekiAnimation/Animation2.png"/>
+      <FILE id="HjEg9l" name="Animation3.png" compile="0" resource="1" file="KanekiAnimation/Animation3.png"/>
+      <FILE id="sC2v2b" name="Animation4.png" compile="0" resource="1" file="KanekiAnimation/Animation4.png"/>
+      <FILE id="T0exKN" name="Animation5.png" compile="0" resource="1" file="KanekiAnimation/Animation5.png"/>
+      <FILE id="RiM21p" name="PurpleAnimate.png" compile="0" resource="1"
+            file="PurpleAnimate.png"/>
     </GROUP>
     <GROUP id="{1941156E-CA64-74ED-EB0F-6196CEA174FE}" name="Source">
       <FILE id="VziRAS" name="Reverb_Edit.h" compile="0" resource="0" file="Source/Reverb_Edit.h"/>
